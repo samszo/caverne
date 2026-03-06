@@ -1,7 +1,14 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Story Land</title>
+</head>
+<body>
 <h1>Storyland</h1>
 <button id="btnGen" >Genere Story</button>
 <input class="txtInp" id="inpOne" type="text" value="TOTO"></input>
-<input class="txtInp" type="text" value="TATA"></input>
 <div class="txtInp"></div>
 
 <script>
@@ -18,6 +25,26 @@ function changeInp(e){
 }
 */
 
+async function fetchFunnyStories() {
+    try {
+        const response = await fetch('http://localhost:11434/api/generate', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+                model: 'mistral',
+                prompt: 'Generate un funny short stories in French. Format json : {title: ..., text: ...}',
+                stream: false
+            })
+        });
+        const data = await response.json();
+        console.log(data.response);
+    } catch (error) {
+        console.error('Error fetching stories:', error);
+    }
+}
+
+fetchFunnyStories();
+
 const funnyStories = [
     { title: "Le Chat Maladroit", text: "Un chat essaie de sauter sur une chaise et rate complètement!" },
     { title: "La Blague du Programmeur", text: "Pourquoi les programmeurs préfèrent le dark mode? Parce que la lumière attire les bugs!" },
@@ -28,13 +55,17 @@ const funnyStories = [
 const storyWords = ["Dragon", "Princesse", "Château", "Magie", "Aventure", "Forêt", "Trésor", "Mystère"];
 
 function changeInp(e){
-    let inputs = document.querySelectorAll('.txtInp');
+    let inputs = document.querySelectorAll('.txtInp'),
+        story = funnyStories[Math.floor(Math.random() * funnyStories.length)]; 
     inputs.forEach(input => {
         if(input.tagName === 'INPUT'){
-            //input.value = storyWords[Math.floor(Math.random() * storyWords.length)];
-            input.value = funnyStories[Math.floor(Math.random() * funnyStories.length)].title;
+            input.value = story.title;
+        }else{
+            input.innerHTML = story.text;
         }
     });
 }
 
-</script>
+</script>    
+</body>
+</html>
