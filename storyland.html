@@ -16,8 +16,6 @@
 
 document.getElementById('btnGen').addEventListener("click",changeInp)
 
-console.log('titi');
-
 /*
 function changeInp(e){
     let monInp = document.getElementById('inpOne');
@@ -32,18 +30,16 @@ async function fetchFunnyStories() {
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({
                 model: 'mistral',
-                prompt: 'Generate un funny short stories in French. Format json : {title: ..., text: ...}',
+                prompt: 'Generate a single funny short story in French. Format json : {title: ..., text: ...}',
                 stream: false
             })
         });
         const data = await response.json();
-        console.log(data.response);
+        return JSON.parse(data.response);
     } catch (error) {
         console.error('Error fetching stories:', error);
     }
 }
-
-fetchFunnyStories();
 
 const funnyStories = [
     { title: "Le Chat Maladroit", text: "Un chat essaie de sauter sur une chaise et rate complètement!" },
@@ -54,9 +50,10 @@ const funnyStories = [
 
 const storyWords = ["Dragon", "Princesse", "Château", "Magie", "Aventure", "Forêt", "Trésor", "Mystère"];
 
-function changeInp(e){
+async function changeInp(e){
     let inputs = document.querySelectorAll('.txtInp'),
-        story = funnyStories[Math.floor(Math.random() * funnyStories.length)]; 
+        //story = funnyStories[Math.floor(Math.random() * funnyStories.length)]; 
+        story = await fetchFunnyStories();
     inputs.forEach(input => {
         if(input.tagName === 'INPUT'){
             input.value = story.title;
