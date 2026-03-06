@@ -1,3 +1,19 @@
 <h1>Storyland</h1>
-<button>Genere Story</button>
-<input type="text" value="TOTO"></input>
+<button id="btnGen" >Genere Story</button>
+<input class="txtInp" id="inpOne" type="text" value="TOTO"></input>
+<input class="txtInp" type="text" value="TATA"></input>
+<div class="txtInp"></div>
+
+<script>
+
+
+document.getElementById('btnGen').addEventListener("click",changeInp)
+
+console.log('titi');
+
+function changeInp(e){
+    let monInp = document.getElementById('inpOne');
+    monInp.value = "TITI";
+}
+
+</script>
