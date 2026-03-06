@@ -11,9 +11,30 @@ document.getElementById('btnGen').addEventListener("click",changeInp)
 
 console.log('titi');
 
+/*
 function changeInp(e){
     let monInp = document.getElementById('inpOne');
     monInp.value = "TITI";
+}
+*/
+
+const funnyStories = [
+    { title: "Le Chat Maladroit", text: "Un chat essaie de sauter sur une chaise et rate complètement!" },
+    { title: "La Blague du Programmeur", text: "Pourquoi les programmeurs préfèrent le dark mode? Parce que la lumière attire les bugs!" },
+    { title: "Le Chien Confus", text: "Un chien voit son reflet dans un miroir et essaie de le combattre." },
+    { title: "La Panne", text: "Un homme entre dans un magasin: 'Avez-vous des cordes?' 'Non.' 'Vous n'avez pas de cordes? Vous auriez pu m'appeler!'" }
+];
+
+const storyWords = ["Dragon", "Princesse", "Château", "Magie", "Aventure", "Forêt", "Trésor", "Mystère"];
+
+function changeInp(e){
+    let inputs = document.querySelectorAll('.txtInp');
+    inputs.forEach(input => {
+        if(input.tagName === 'INPUT'){
+            //input.value = storyWords[Math.floor(Math.random() * storyWords.length)];
+            input.value = funnyStories[Math.floor(Math.random() * funnyStories.length)].title;
+        }
+    });
 }
 
 </script>
